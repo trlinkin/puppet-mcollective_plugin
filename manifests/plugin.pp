@@ -8,23 +8,29 @@ class mcollective_plugin::plugin (
 
   validate_re($type, ['agent','validator','application', 'data', 'discovery'])
 
+  if $type in ['data','validator'] {
+    $suffix = "_${type}"
+  } else {
+    $suffix = ''
+  }
+
   file { "${name}_plugin":
     ensure => file,
-    path   => "${libdir}/${type}/${name}.rb",
+    path   => "${libdir}/${type}/${name}${suffix}.rb",
     owner  => 'root',
     group  => 'root',
     mode   => '0755',
-    source => "puppet:///modules/${caller_module_name}/${type}/${name}.rb"
+    source => "puppet:///modules/${caller_module_name}/${type}/${name}${suffix}.rb"
   }
 
   if $type in ['validator','agent','data','discovery'] {
     file { "${name}_pluing_ddl":
       ensure => file,
-      path   => "${libdir}/${type}/${name}.ddl",
+      path   => "${libdir}/${type}/${name}${suffix}.ddl",
       owner  => 'root',
       group  => 'root',
       mode   => '0755',
-      source => "puppet:///modules/${caller_module_name}/${type}/${name}.ddl",
+      source => "puppet:///modules/${caller_module_name}/${type}/${name}${suffix}.ddl",
     }
   }
 }
