@@ -1,4 +1,4 @@
-class mcollective_plugin::plugin (
+define mcollective_plugin::plugin (
   $type,
   $libdir = $::mcollective_plugin::params::libdir,
 ){
@@ -19,7 +19,7 @@ class mcollective_plugin::plugin (
     path   => "${libdir}/${type}/${name}${suffix}.rb",
     owner  => 'root',
     group  => 'root',
-    mode   => '0755',
+    mode   => '0644',
     source => "puppet:///modules/${caller_module_name}/${type}/${name}${suffix}.rb"
   }
 
@@ -29,7 +29,7 @@ class mcollective_plugin::plugin (
       path   => "${libdir}/${type}/${name}${suffix}.ddl",
       owner  => 'root',
       group  => 'root',
-      mode   => '0755',
+      mode   => '0644',
       source => "puppet:///modules/${caller_module_name}/${type}/${name}${suffix}.ddl",
     }
   }
