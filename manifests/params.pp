@@ -4,6 +4,8 @@ class mcollective_plugin::params {
     $service = 'pe-mcollective'
   }
   else {
+    $service = 'mcollective'
+
     case $::osfamily {
     'RedHat': {
                 $libdir = '/usr/libexec/mcollective/mcollective/'
